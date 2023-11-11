@@ -8,9 +8,10 @@ conda env create -f environment.yml
 ```
 
 ### To update the existing environment
+> :warning: Manually add any new packages to the `environment.yml` either as pip or conda dependencies. Using the default conda environment export causes sub-dependencies to be listed which slows down the `conda-lock` generation process.
+
 To speed up the continuous integration, we also generated a [conda lock](https://conda.github.io/conda-lock/) file for linux as follows.
 ```
-conda env export --no-builds | grep -v "^prefix: " > environment.yml
 conda-lock lock --mamba -f environment.yml -p linux-64 --kind explicit
 ```
 This file lives in `conda-linux-64.lock` and should be regenerated whenever the `environment.yml` is updated.
