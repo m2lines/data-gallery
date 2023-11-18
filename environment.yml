@@ -6,6 +6,7 @@ dependencies:
   - pip=23.3
   - python=3.9.18
   - conda-lock
+  - netCDF4
   - pip:
       - conda-lock==2.4.2
       - jupyter-book==0.15.1
