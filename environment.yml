@@ -7,6 +7,8 @@ dependencies:
   - python=3.9.18
   - conda-lock
   - netCDF4
+  # conda-lock does not support pip dependencies, update requirements.txt for github pages deployment
+  # alternative is to create environment using only conda packages - not always reliable
   - pip:
       - conda-lock==2.4.2
       - jupyter-book==0.15.1

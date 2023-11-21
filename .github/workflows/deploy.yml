@@ -33,6 +33,7 @@ jobs:
       - name: 👀 Check Conda environment
         shell: bash -l {0}
         run: |
+          pip install requirements.txt
           conda info
           conda list
       - name: 📦 Cache Notebooks
