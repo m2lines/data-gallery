@@ -6,6 +6,10 @@ git clone git@github.com:m2lines/data-gallery.git
 cd data-gallery
 conda env create -f environment.yml
 ```
+You can activate the environment with 
+```
+conda activate DGM2lines
+```
 
 ### To update the existing environment
 > :warning: Manually add any new packages to the `environment.yml` either as pip or conda dependencies. Using the default conda environment export causes sub-dependencies to be listed which slows down the `conda-lock` generation process.
@@ -26,6 +30,8 @@ When you run this command, the notebooks will be executed. The built html will b
 cd _build/html
 python -m http.server
 ```
+You can then navigate to `http://localhost:8000` in your webbrowser to see the webpage.
+
 The build process can take a long time, so we have configured the setup to use [jupyter-cache](https://jupyter-cache.readthedocs.io/en/latest/). If you re-run the build command, it will only re-execute notebooks that have been changed. The cache files live in `_build/.jupyter_cache`.
 
 To check the status of the cache, run
@@ -91,8 +97,8 @@ To check your remotes, run
 
 ```bash
 $ git remote -v
-origin	git@github.com:rabernat/data-gallery.git (fetch)
-origin	git@github.com:rabernat/data-gallery.git (push)
+origin	git@github.com:<your-username>/data-gallery.git (fetch)
+origin	git@github.com:<your-username>/data-gallery.git (push)
 upstream	git@github.com:m2lines/data-gallery.git (fetch)
 upstream	git@github.com:m2lines/data-gallery.git (push)
 ```
