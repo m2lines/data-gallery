@@ -15,4 +15,4 @@ notebooks/*.pkl
 notebooks/*.csv*
 notebooks/figs/symbolic_regression.svg
 notebooks/figs/symbolic_regression_pw.svg
-dataset.nc
+dataset*
