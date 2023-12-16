@@ -128,7 +128,7 @@ Ideally you will not have any merge conflicts.
 You are now ready to make a new feature branch.
 
 ## References
-     
          
             
+        
         
