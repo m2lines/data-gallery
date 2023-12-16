@@ -8,7 +8,7 @@ git clone git@github.com:m2lines/data-gallery.git
 cd data-gallery
 conda env create -f environment.yml
 ```
-You can activate the environment with 
+You can activate the environment with
 ```
 conda activate DGM2lines
 ```
