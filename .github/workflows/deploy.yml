@@ -36,9 +36,6 @@ jobs:
           pip install -r requirements.txt
           conda info
           conda list
-      - name: Check Formatting
-        run: |
-          pre-commit run --all-files
       - name: 📦 Cache Notebooks
         uses: actions/cache@v2
         with:
