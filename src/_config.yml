@@ -1,0 +1,57 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+# this title does not seem to work, refer to sphinx.config.html_theme_options.logo.text
+title: Data Gallery
+author: The M<sup>2</sup>LInES Community
+logo: assets/newlogo.png
+
+exclude_patterns: ['env/*', '_build/*']
+only_build_toc_files: true
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: force
+  timeout: 1800
+  exclude_patterns: ['*old_notebooks/*']
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
+# set to author_year format
+sphinx:
+  html4_writer:
+    {
+      "citation_show_urls": False,
+      "citation_references": "full",
+      "external_links": False,
+    }
+  config:
+    bibtex_reference_style: author_year
+    nb_merge_streams: true
+    html_theme_options:
+      # title of the notebook
+      logo:
+        text: "Data Gallery"
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/m2lines/data-gallery # Online location of your book
+  branch: main # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
