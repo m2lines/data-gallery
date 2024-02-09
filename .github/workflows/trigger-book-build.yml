@@ -3,7 +3,7 @@ on:
   pull_request:
 
 jobs:
-  build-and-deploy-book:
+  install-dependencies:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -40,10 +40,10 @@ jobs:
         with:
           path: _build/.jupyter_cache
           key: notebook_cache-${{hashFiles('_toc.yml', '_config.yml', 'environment.yml') }}
-      - name: 📖 Build the book
-        uses: ProjectPythia/cookbook-actions/.github/workflows/build-book.yaml@main
-        with:
-          environment_name: leap-docs-env
-          artifact_name: book-zip-${{ github.event.number }}
-          path_to_notebooks: "book"
-          build_command: "jupyter-book build -W --keep-going ."
+  build-book:
+    uses: ProjectPythia/cookbook-actions/.github/workflows/build-book.yaml@main
+    with:
+      environment_name: leap-docs-env
+      artifact_name: book-zip-${{ github.event.number }}
+      path_to_notebooks: "book"
+      build_command: "jupyter-book build -W --keep-going ."
