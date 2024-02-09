@@ -43,7 +43,7 @@ jobs:
   build-book:
     uses: ProjectPythia/cookbook-actions/.github/workflows/build-book.yaml@main
     with:
-      environment_name: leap-docs-env
+      environment_name: DGM2lines
       artifact_name: book-zip-${{ github.event.number }}
-      path_to_notebooks: "book"
+      path_to_notebooks: "."
       build_command: "jupyter-book build -W --keep-going ."
