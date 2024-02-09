@@ -45,5 +45,5 @@ jobs:
     with:
       environment_name: DGM2lines
       artifact_name: book-zip-${{ github.event.number }}
-      path_to_notebooks: "."
+      path_to_notebooks: "src"
       build_command: "jupyter-book build --keep-going ."
