@@ -6,6 +6,7 @@ __pycache__
 *.jpeg
 *.npz
 *.pth
+*.gif
 _build/*
 _notebook_cache/*
 notebooks/figs/symbolic_regression.png
