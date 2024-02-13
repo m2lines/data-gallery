@@ -38,6 +38,7 @@ sphinx:
       "external_links": False,
     }
   config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     bibtex_reference_style: author_year
     nb_merge_streams: true
     html_theme_options:
