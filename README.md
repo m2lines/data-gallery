@@ -25,6 +25,7 @@ This file lives in `conda-linux-64.lock` and should be regenerated whenever the 
 ## Building the book
 To build the book locally, you should first create and activate your environment, as described above. Then run
 ```
+cd src
 jupyter book build .
 ```
 When you run this command, the notebooks will be executed. The built html will be placed in '_build/html`. To preview the book, run
