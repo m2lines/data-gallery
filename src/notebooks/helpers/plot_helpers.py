@@ -134,7 +134,6 @@ def default_rcParams(kw={}):
 
     matplotlib.rcParams.update(
         {
-            "font.family": "MathJax_Main",
             "mathtext.fontset": "cm",
             "figure.figsize": (4, 4),
             "figure.subplot.wspace": 0.3,
