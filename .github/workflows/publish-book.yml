@@ -1,7 +1,10 @@
-name: build-and-deploy-book
+name: publish-book
 
-# Trigger the workflow on push to main branch and PRs
-on: [push, pull_request]
+# Trigger the workflow on push to main branch
+on:
+  push:
+    branches:
+      - main
 # This job installs dependencies, builds the book, and deploys the html
 jobs:
   build-and-deploy-book:
@@ -51,6 +54,7 @@ jobs:
         run: |
           find _build/html -name "*.log" -print -exec cat {} \;
       - name: 🚀 Deploy to GitHub Pages
+        # redudant but keeping for testing purposes
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3.9.3
         with:
