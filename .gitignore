@@ -6,7 +6,6 @@ __pycache__
 *.jpeg
 *.npz
 *.pth
-*.gif
 _build/*
 src/_build/*
 _notebook_cache/*
