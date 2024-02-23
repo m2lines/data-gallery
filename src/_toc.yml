@@ -8,6 +8,6 @@ parts:
     chapters:
       - file: notebooks/xarray_intro.ipynb
       - file: notebooks/xgcm_intro.ipynb
-  - caption: MOM6
+  - caption: Tutorials
     chapters:
       - file: notebooks/pycnocline_depth_mom6.ipynb
