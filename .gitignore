@@ -6,6 +6,7 @@ __pycache__
 *.jpeg
 *.npz
 *.pth
+_build/*
 src/_build/*
 _notebook_cache/*
 notebooks/Source.gv

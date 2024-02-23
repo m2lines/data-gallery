@@ -13,12 +13,13 @@ only_build_toc_files: true
 execute:
   execute_notebooks: force
   timeout: 1800
-  exclude_patterns: ['*old_notebooks/*']
+  exclude_patterns: ['*old_notebooks/*', '*notebooks/OM4_SE_animation.ipynb']
 
 parse:
   myst_enable_extensions:
     - amsmath
     - dollarmath
+    - html_image
 
 # Define the name of the latex output file for PDF builds
 latex:
