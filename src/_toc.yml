@@ -11,3 +11,4 @@ parts:
   - caption: Data Analysis
     chapters:
       - file: notebooks/OM4_SE_animation.ipynb
+      - file: notebooks/pycnocline_depth_mom6.ipynb
