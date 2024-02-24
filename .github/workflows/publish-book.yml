@@ -42,7 +42,7 @@ jobs:
       - name: 📦 Cache Notebooks
         uses: actions/cache@v2
         with:
-          path: _build/.jupyter_cache
+          path: src/_build/.jupyter_cache
           key: notebook_cache-${{hashFiles('_toc.yml', '_config.yml', 'environment.yml') }}
       - name: 📖 Build the book
         shell: bash -l {0}
@@ -53,13 +53,13 @@ jobs:
       - name: 📖 Show logs from the book build
         shell: bash -l {0}
         run: |
-          find _build/html -name "*.log" -print -exec cat {} \;
+          find src/_build/html -name "*.log" -print -exec cat {} \;
       - name: 🚀 Deploy to GitHub Pages
         # redudant but keeping for testing purposes
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/html
+          publish_dir: src/_build/html
           keep_files: false
           force_orphan: true
