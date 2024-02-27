@@ -22,4 +22,3 @@ dependencies:
       - matplotlib
       - chardet
       - gsw
-      - numba
