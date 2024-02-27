@@ -1,4 +1,4 @@
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/m2lines/data-gallery/main.svg)](https://results.pre-commit.ci/latest/github/m2lines/data-gallery/main)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/m2lines/data-gallery/main.svg)](https://results.pre-commit.ci/latest/github/m2lines/data-gallery/main) [![publish-book](https://github.com/m2lines/data-gallery/actions/workflows/publish-book.yml/badge.svg)](https://github.com/m2lines/data-gallery/actions/workflows/publish-book.yml)
 
 # data-gallery
 
