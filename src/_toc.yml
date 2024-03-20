@@ -9,6 +9,7 @@ parts:
       - file: notebooks/xarray_intro.ipynb
       - file: notebooks/xgcm_intro.ipynb
       - file: notebooks/MOM6_basic_plotting.ipynb
+      - file: notebooks/matplotlib_intro.ipynb
   - caption: Data Analysis
     chapters:
       - file: notebooks/OM4_SE_animation.ipynb
