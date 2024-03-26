@@ -13,3 +13,4 @@ parts:
     chapters:
       - file: notebooks/OM4_SE_animation.ipynb
       - file: notebooks/pycnocline_depth_mom6.ipynb
+      - file: notebooks/unet_movie.ipynb

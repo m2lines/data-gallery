@@ -11,3 +11,4 @@ cartopy==0.22.0
 matplotlib
 chardet
 gsw
+gdown

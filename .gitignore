@@ -10,7 +10,10 @@ _build/
 _build/*
 src/_build/*
 _notebook_cache/*
-notebooks/Source.gv
-notebooks/*.pkl
-notebooks/*.csv*
+src/notebooks/Source.gv
+src/notebooks/*.pkl
+src/notebooks/*.csv*
 dataset*
+src/notebooks/*.nc
+src/notebooks/*.npy
+src/notebooks/*.gif
