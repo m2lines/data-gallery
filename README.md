@@ -142,11 +142,4 @@ ds.to_zarr(mapper)
 
 Additionally, Include a disclaimer at the top of the notebook, similar to this [notebook](https://github.com/m2lines/data-gallery/blob/main/book/notebooks/OM4_SE_animation.ipynb), informing readers that it is only executable on LEAP-Pangeo.
 
-
-```markdown
-```{note}
-
-```markdown
-```{note}
-
 ## References
