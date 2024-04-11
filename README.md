@@ -128,4 +128,25 @@ $ git merge upstream/main
 Ideally you will not have any merge conflicts.
 You are now ready to make a new feature branch.
 
+### Using Large Datasets
+
+For notebooks in the data gallery that utilize large datasets, ingest the dataset into LEAP-Pangeo (Follow [LEAP-Pangeo technical documentation](https://leap-stc.github.io/guides/hub_guides.html#data)) if not already present.
+
+Ensure you upload your data to the directory 'leap-persistent/m2lines-data-gallery/'. For example:
+
+```
+ds = xr.DataArray([1, 4, 6]).to_dataset(name='data')
+mapper = fs.get_mapper('gs://leap-persistent/m2lines-data-gallery/test_file.zarr')
+ds.to_zarr(mapper)
+```
+
+Additionally, Include a disclaimer at the top of the notebook, similar to this [notebook](https://github.com/m2lines/data-gallery/blob/main/book/notebooks/OM4_SE_animation.ipynb), informing readers that it is only executable on LEAP-Pangeo.
+
+
+```markdown
+```{note}
+
+```markdown
+```{note}
+
 ## References
