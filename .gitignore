@@ -14,6 +14,8 @@ book/notebooks/Source.gv
 book/notebooks/*.pkl
 book/notebooks/*.csv*
 dataset*
-book/notebooks/*.nc
-book/notebooks/*.npy
-book/notebooks/*.gif
+src/notebooks/*.nc
+src/notebooks/*.npy
+src/notebooks/*.gif
+token.txt
+upload_to_leap.py
