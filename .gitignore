@@ -10,7 +10,12 @@ _build/
 _build/*
 book/_build/*
 _notebook_cache/*
-notebooks/Source.gv
-notebooks/*.pkl
-notebooks/*.csv*
+book/notebooks/Source.gv
+book/notebooks/*.pkl
+book/notebooks/*.csv*
 dataset*
+src/notebooks/*.nc
+src/notebooks/*.npy
+src/notebooks/*.gif
+token.txt
+upload_to_leap.py
