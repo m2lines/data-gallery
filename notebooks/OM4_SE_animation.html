@@ -176,6 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <li class="toctree-l1"><a class="reference internal" href="pycnocline_depth_mom6.html">Pycnocline Depth using MOM6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unet_movie.html">Ocean Emulation Animations with U-Net</a></li>
 </ul>
 
     </div>
@@ -347,7 +348,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="om4-animation">
 <h1>OM4 Animation<a class="headerlink" href="#om4-animation" title="Permalink to this heading">#</a></h1>
 <p>To run this notebook, you will have to use LEAP-Pangeo hub!</p>
-<p><a href="https://leap.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fm2lines%2Fdata-gallery&urlpath=lab%2Ftree%2Fdata-gallery%2Fsrc%2Fnotebooks%2FOM4_SE_animation.ipynb&branch=main"><img alt="https://custom-icon-badges.demolab.com/badge/LEAP-Launch%20%F0%9F%9A%80-blue?style=for-the-badge&amp;logo=leap-globe" src="https://custom-icon-badges.demolab.com/badge/LEAP-Launch%20%F0%9F%9A%80-blue?style=for-the-badge&amp;logo=leap-globe" /></a></p>
+<p><a href="https://leap.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fm2lines%2Fdata-gallery&urlpath=lab%2Ftree%2Fdata-gallery%2Fbook%2Fnotebooks%2FOM4_SE_animation.ipynb&branch=main"><img alt="https://custom-icon-badges.demolab.com/badge/LEAP-Launch%20%F0%9F%9A%80-blue?style=for-the-badge&amp;logo=leap-globe" src="https://custom-icon-badges.demolab.com/badge/LEAP-Launch%20%F0%9F%9A%80-blue?style=for-the-badge&amp;logo=leap-globe" /></a></p>
 <p>In this notebook, we will visualize the OM4 data using the <code class="docutils literal notranslate"><span class="pre">xarray</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> libraries and create an animation of the Surface Kinetic Energy over time. We will explore visualizations in both global and regional scales.</p>
 <p>Credits: <a class="github reference external" href="https://github.com/Pperezhogin/MOM6/blob/Zanna-Bolton-2020/experiments/ZB20-Results/14-Global-animation.ipynb">Pperezhogin/MOM6</a></p>
 <div class="cell docutils container">
@@ -355,7 +356,6 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">helpers.collection_of_experiments</span> <span class="kn">import</span> <span class="n">CollectionOfExperiments</span>
 <span class="kn">from</span> <span class="nn">helpers.plot_helpers</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">helpers.computational_tools</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">remesh</span><span class="p">,</span>
@@ -365,8 +365,6 @@ document.write(`
     <span class="n">x_coord</span><span class="p">,</span>
     <span class="n">y_coord</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
-<span class="kn">import</span> <span class="nn">cmocean</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="o">%</span><span class="k">load_ext</span> autoreload
@@ -3456,6 +3454,34 @@ Attributes:
 </div>
 </div>
 <p>Here, we show the animation of the Surface Kinetic Energy in intervals of 5 days shifting the longitude by 5 degrees each step.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span><span class="p">,</span> <span class="n">PillowWriter</span>
+
+<span class="k">def</span> <span class="nf">update_frame</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">plot_func</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">len_idx</span><span class="p">):</span>
+    <span class="c1"># Clear the current figure to prepare for the next frame&#39;s plot.</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">plot_func</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">len_idx</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">create_gif</span><span class="p">(</span><span class="n">plot_func</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;my-animation.gif&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">FPS</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+    <span class="n">ani</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span>
+        <span class="n">fig</span><span class="p">,</span>
+        <span class="n">update_frame</span><span class="p">,</span>
+        <span class="n">frames</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+        <span class="n">fargs</span><span class="o">=</span><span class="p">(</span><span class="n">plot_func</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)),</span>
+        <span class="n">repeat</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">loop</span><span class="p">),</span>
+        <span class="n">blit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">PillowWriter</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="n">FPS</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">artist</span><span class="o">=</span><span class="s2">&quot;Me&quot;</span><span class="p">))</span>
+    <span class="n">ani</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writer</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell tag_scroll-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
