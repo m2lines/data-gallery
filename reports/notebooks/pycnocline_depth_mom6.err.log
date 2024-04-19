@@ -15,77 +15,74 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
-import pandas as pd
-import xarray as xr
-import gsw as gs
-from matplotlib import pyplot as plt
-from xgcm import Grid
+lat = ds.lat.values
+z_l = ds.z_l.values
+z_i = dn2.z_i[1:].values
 
-xr.set_options(display_style="html")
-plt.rcParams["figure.figsize"] = 5, 2.5
+ds_rn = xr.Dataset(
+    coords={
+        "lat_c": (
+            ["lat_c"],
+            lat,
+        ),
+        "lat_g": (
+            ["lat_g"],
+            lat + 0.5,
+        ),
+        "z_l": (
+            ["z_l"],
+            z_l,
+        ),
+        "z_i": (["z_i"], z_i),
+    }
+)
+grid = Grid(
+    ds_rn,
+    coords={
+        "Y": {"center": "lat_c", "right": "lat_g"},
+        "Z": {"inner": "z_l", "outer": "z_i"},
+    },
+    periodic=False,
+)
+lev_grid = rho_norm.z_l.broadcast_like(rho_norm)
+target_levels = np.arange(0, 1, 0.025)
+depth_rho_norm = grid.transform(
+    lev_grid, "Z", target_levels, target_data=rho_norm, method="linear"
+)
 ------------------
 
+----- stderr -----
+/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:989: FutureWarning: From version 0.8.0 the Axis computation methods will be removed, in favour of using the Grid computation methods instead. i.e. use `Grid.transform` instead of `Axis.transform`
+  warnings.warn(
+------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mSystemError[0m                               Traceback (most recent call last)
-Cell [0;32mIn[1], line 6[0m
-[1;32m      4[0m [38;5;28;01mimport[39;00m [38;5;21;01mgsw[39;00m [38;5;28;01mas[39;00m [38;5;21;01mgs[39;00m
-[1;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmatplotlib[39;00m [38;5;28;01mimport[39;00m pyplot [38;5;28;01mas[39;00m plt
-[0;32m----> 6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mxgcm[39;00m [38;5;28;01mimport[39;00m Grid
-[1;32m      8[0m xr[38;5;241m.[39mset_options(display_style[38;5;241m=[39m[38;5;124m"[39m[38;5;124mhtml[39m[38;5;124m"[39m)
-[1;32m      9[0m plt[38;5;241m.[39mrcParams[[38;5;124m"[39m[38;5;124mfigure.figsize[39m[38;5;124m"[39m] [38;5;241m=[39m [38;5;241m5[39m, [38;5;241m2.5[39m
+[0;31mImportError[0m                               Traceback (most recent call last)
+Cell [0;32mIn[7], line 32[0m
+[1;32m     30[0m lev_grid [38;5;241m=[39m rho_norm[38;5;241m.[39mz_l[38;5;241m.[39mbroadcast_like(rho_norm)
+[1;32m     31[0m target_levels [38;5;241m=[39m np[38;5;241m.[39marange([38;5;241m0[39m, [38;5;241m1[39m, [38;5;241m0.025[39m)
+[0;32m---> 32[0m depth_rho_norm [38;5;241m=[39m [43mgrid[49m[38;5;241;43m.[39;49m[43mtransform[49m[43m([49m
+[1;32m     33[0m [43m    [49m[43mlev_grid[49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mZ[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[43mtarget_levels[49m[43m,[49m[43m [49m[43mtarget_data[49m[38;5;241;43m=[39;49m[43mrho_norm[49m[43m,[49m[43m [49m[43mmethod[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mlinear[39;49m[38;5;124;43m"[39;49m
+[1;32m     34[0m [43m)[49m
 
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/__init__.py:6[0m
-[1;32m      3[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
-[1;32m      4[0m     __version__ [38;5;241m=[39m [38;5;124m"[39m[38;5;124munknown[39m[38;5;124m"[39m
-[0;32m----> 6[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mautogenerate[39;00m [38;5;28;01mimport[39;00m generate_grid_ds
-[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mgrid[39;00m [38;5;28;01mimport[39;00m Axis, Grid
-[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mgrid_ufunc[39;00m [38;5;28;01mimport[39;00m apply_as_grid_ufunc, as_grid_ufunc
-
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/autogenerate.py:3[0m
-[1;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mxarray[39;00m [38;5;28;01mas[39;00m [38;5;21;01mxr[39;00m
-[0;32m----> 3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mxgcm[39;00m[38;5;21;01m.[39;00m[38;5;21;01mgrid[39;00m [38;5;28;01mimport[39;00m Axis, raw_interp_function
-[1;32m      6[0m [38;5;28;01mdef[39;00m [38;5;21mgenerate_axis[39m(
-[1;32m      7[0m     ds,
-[1;32m      8[0m     axis,
+File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:2692[0m, in [0;36mGrid.transform[0;34m(self, da, axis, target, **kwargs)[0m
+[1;32m   2608[0m [38;5;250m[39m[38;5;124;03m"""Convert an array of data to new 1D-coordinates along `axis`.[39;00m
+[1;32m   2609[0m [38;5;124;03mThe method takes a multidimensional array of data `da` and[39;00m
+[1;32m   2610[0m [38;5;124;03mtransforms it onto another data_array `target_data` in the[39;00m
 [0;32m   (...)[0m
-[1;32m     16[0m     attrs_from_scratch[38;5;241m=[39m[38;5;28;01mTrue[39;00m,
-[1;32m     17[0m ):
-[1;32m     18[0m [38;5;250m    [39m[38;5;124;03m"""[39;00m
-[1;32m     19[0m [38;5;124;03m    Creates c-grid dimensions (or coordinates) along an axis of[39;00m
-[1;32m     20[0m 
-[0;32m   (...)[0m
-[1;32m     50[0m [38;5;124;03m        coordinates. These can only be calculated after the dims are created.[39;00m
-[1;32m     51[0m [38;5;124;03m    """[39;00m
+[1;32m   2688[0m 
+[1;32m   2689[0m [38;5;124;03m"""[39;00m
+[1;32m   2691[0m ax [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39maxes[axis]
+[0;32m-> 2692[0m [38;5;28;01mreturn[39;00m [43max[49m[38;5;241;43m.[39;49m[43mtransform[49m[43m([49m[43mda[49m[43m,[49m[43m [49m[43mtarget[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
 
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:27[0m
-[1;32m     24[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mpadding[39;00m [38;5;28;01mimport[39;00m pad
-[1;32m     26[0m [38;5;28;01mtry[39;00m:
-[0;32m---> 27[0m     [38;5;28;01mimport[39;00m [38;5;21;01mnumba[39;00m  [38;5;66;03m# type: ignore[39;00m
-[1;32m     29[0m     [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mtransform[39;00m [38;5;28;01mimport[39;00m conservative_interpolation, linear_interpolation
-[1;32m     30[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
+File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:1002[0m, in [0;36mAxis.transform[0;34m(self, da, target, target_data, method, mask_edges, bypass_checks, suffix)[0m
+[1;32m   1000[0m [38;5;66;03m# check optional numba dependency[39;00m
+[1;32m   1001[0m [38;5;28;01mif[39;00m numba [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m-> 1002[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m(
+[1;32m   1003[0m         [38;5;124m"[39m[38;5;124mThe transform functionality of xgcm requires numba. Install using `conda install numba`.[39m[38;5;124m"[39m
+[1;32m   1004[0m     )
+[1;32m   1006[0m [38;5;66;03m# raise error if axis is periodic[39;00m
+[1;32m   1007[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_periodic:
 
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/numba/__init__.py:42[0m
-[1;32m     38[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdecorators[39;00m [38;5;28;01mimport[39;00m (cfunc, generated_jit, jit, njit, stencil,
-[1;32m     39[0m                                    jit_module)
-[1;32m     41[0m [38;5;66;03m# Re-export vectorize decorators and the thread layer querying function[39;00m
-[0;32m---> 42[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mufunc[39;00m [38;5;28;01mimport[39;00m (vectorize, guvectorize, threading_layer,
-[1;32m     43[0m                             get_num_threads, set_num_threads)
-[1;32m     45[0m [38;5;66;03m# Re-export Numpy helpers[39;00m
-[1;32m     46[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnumpy_support[39;00m [38;5;28;01mimport[39;00m carray, farray, from_dtype
-
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/numba/np/ufunc/__init__.py:3[0m
-[1;32m      1[0m [38;5;66;03m# -*- coding: utf-8 -*-[39;00m
-[0;32m----> 3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mufunc[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdecorators[39;00m [38;5;28;01mimport[39;00m Vectorize, GUVectorize, vectorize, guvectorize
-[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mufunc[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_internal[39;00m [38;5;28;01mimport[39;00m PyUFunc_None, PyUFunc_Zero, PyUFunc_One
-[1;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mufunc[39;00m [38;5;28;01mimport[39;00m _internal, array_exprs
-
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/numba/np/ufunc/decorators.py:3[0m
-[1;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01minspect[39;00m
-[0;32m----> 3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mufunc[39;00m [38;5;28;01mimport[39;00m _internal
-[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnp[39;00m[38;5;21;01m.[39;00m[38;5;21;01mufunc[39;00m[38;5;21;01m.[39;00m[38;5;21;01mparallel[39;00m [38;5;28;01mimport[39;00m ParallelUFuncBuilder, ParallelGUFuncBuilder
-[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumba[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mregistry[39;00m [38;5;28;01mimport[39;00m DelayedRegistry
-
-[0;31mSystemError[0m: initialization of _internal failed without raising an exception
+[0;31mImportError[0m: The transform functionality of xgcm requires numba. Install using `conda install numba`.
 
