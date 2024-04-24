@@ -19,3 +19,5 @@ src/notebooks/*.npy
 src/notebooks/*.gif
 token.txt
 upload_to_leap.py
+gz21_ocean_momentum
+gz21-forcing-cm26
