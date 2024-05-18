@@ -8,4 +8,4 @@ So far, we are focusing on the tools for analysis of M2LInES GFDL OM4 simulation
 
 Some of work is described in this [Medium article](https://medium.com/@lz1955/a-new-generation-of-climate-models-aefd851d47bd).
 
-Check back soon for more !
+Check back soon for more!
