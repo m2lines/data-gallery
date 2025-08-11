@@ -1,17 +1,24 @@
 Traceback (most recent call last):
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 1305, in execute
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 1305, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
     return loop.run_until_complete(inner)
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
     return future.result()
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 705, in async_execute
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 705, in async_execute
     await self.async_execute_cell(
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 1058, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+  File "/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -52,7 +59,7 @@ depth_rho_norm = grid.transform(
 ------------------
 
 ----- stderr -----
-/home/runner/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:989: FutureWarning: From version 0.8.0 the Axis computation methods will be removed, in favour of using the Grid computation methods instead. i.e. use `Grid.transform` instead of `Axis.transform`
+/home/runner/micromamba/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:989: FutureWarning: From version 0.8.0 the Axis computation methods will be removed, in favour of using the Grid computation methods instead. i.e. use `Grid.transform` instead of `Axis.transform`
   warnings.warn(
 ------------------
 
@@ -65,7 +72,7 @@ Cell [0;32mIn[7], line 32[0m
 [1;32m     33[0m [43m    [49m[43mlev_grid[49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mZ[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[43mtarget_levels[49m[43m,[49m[43m [49m[43mtarget_data[49m[38;5;241;43m=[39;49m[43mrho_norm[49m[43m,[49m[43m [49m[43mmethod[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mlinear[39;49m[38;5;124;43m"[39;49m
 [1;32m     34[0m [43m)[49m
 
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:2692[0m, in [0;36mGrid.transform[0;34m(self, da, axis, target, **kwargs)[0m
+File [0;32m~/micromamba/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:2692[0m, in [0;36mGrid.transform[0;34m(self, da, axis, target, **kwargs)[0m
 [1;32m   2608[0m [38;5;250m[39m[38;5;124;03m"""Convert an array of data to new 1D-coordinates along `axis`.[39;00m
 [1;32m   2609[0m [38;5;124;03mThe method takes a multidimensional array of data `da` and[39;00m
 [1;32m   2610[0m [38;5;124;03mtransforms it onto another data_array `target_data` in the[39;00m
@@ -75,7 +82,7 @@ File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py
 [1;32m   2691[0m ax [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39maxes[axis]
 [0;32m-> 2692[0m [38;5;28;01mreturn[39;00m [43max[49m[38;5;241;43m.[39;49m[43mtransform[49m[43m([49m[43mda[49m[43m,[49m[43m [49m[43mtarget[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
 
-File [0;32m~/miniconda3/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:1002[0m, in [0;36mAxis.transform[0;34m(self, da, target, target_data, method, mask_edges, bypass_checks, suffix)[0m
+File [0;32m~/micromamba/envs/DGM2lines/lib/python3.9/site-packages/xgcm/grid.py:1002[0m, in [0;36mAxis.transform[0;34m(self, da, target, target_data, method, mask_edges, bypass_checks, suffix)[0m
 [1;32m   1000[0m [38;5;66;03m# check optional numba dependency[39;00m
 [1;32m   1001[0m [38;5;28;01mif[39;00m numba [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
 [0;32m-> 1002[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m(
